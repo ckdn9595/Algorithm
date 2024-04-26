@@ -1,4 +1,3 @@
-package Java.BruteForce;
 import java.util.*;
 import java.io.*;
 
@@ -7,9 +6,8 @@ public class AlgoSpot_Boggle {
         String name;
         boolean canMake;
 
-        public Words(String name, boolean canMake) {
+        public Words(String name) {
             this.name = name;
-            this.canMake = canMake;
         }
 
         public String write() {
@@ -35,17 +33,14 @@ public class AlgoSpot_Boggle {
             int K = Integer.parseInt(br.readLine());
             Words[] wds = new Words[K];
             for (int i = 0; i < K; i++) {
-                wds[i] = new Words(br.readLine(), false);
+                wds[i] = new Words(br.readLine());
             }
             for (Words w : wds) {
-                char c = w.name.charAt(0);
                 loop: for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
-                        if (map[i][j] == c) {
-                            w.canMake = dfs(w.name, i, j);
-                            if (w.canMake)
-                                break loop;
-                        }
+                        w.canMake = dfs(w.name, i, j);
+                        if (w.canMake)
+                            break loop;
                     }
                 }
                 sb.append(w.write()).append("\n");
@@ -58,20 +53,17 @@ public class AlgoSpot_Boggle {
     }
 
     public static boolean dfs(String str, int r, int c) {
-        if (str.length() == 0)
-            return true;
-        char cc = str.charAt(0);
-        int ny, nx;
-        for (int d = 0; d < 8; d++) {
-            ny = r + dy[d];
-            nx = c + dx[d];
-            if (ny >= 0 && ny < 5 && nx >= 0 && nx < 5 && map[ny][nx] == cc) {
-                if (dfs(str.substring(1), ny, nx)) {
-                    return true;
-                }
-            }
+        if (r < 0 || r >= 5 || c < 0 || c >= 5 || map[r][c] != str.charAt(0)) {
+            return false;
         }
-
+        if (str.length() == 1)
+            return true;
+        for (int d = 0; d < 8; d++) {
+            int nr = r + dy[d];
+            int nc = c + dx[d];
+            if (dfs(str.substring(1), nr, nc))
+                return true;
+        }
         return false;
     }
 }
