@@ -19,7 +19,7 @@ public class BJ_4153 {
             }else{
                 solution(sb, b, a, c);
             }
-        }
+        }     s
         System.out.println(sb);
     }
 
