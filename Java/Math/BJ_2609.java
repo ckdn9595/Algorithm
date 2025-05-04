@@ -11,8 +11,9 @@ public class BJ_2609 {
 
         int mod = Math.abs(A - B);
         if(mod == 0 ){
-            System.out.println(1);
             System.out.println(A);
+            System.out.println(A);
+            return;
         }
         boolean GDC = false;
         while(!GDC){
