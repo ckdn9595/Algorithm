@@ -15,13 +15,34 @@ public class BJ_2609 {
             System.out.println(A);
             return;
         }
-        boolean GDC = false;
-        while(!GDC){
-            GDC = A % mod == 0 && B % mod == 0;
-            mod -= 1;
+        if(A < B){
+            int tmp = A;
+            A = B;
+            B = tmp;
         }
-        mod += 1;
-        System.out.println(mod);
-        System.out.println(A * B / mod);
+        int gcd = gcd(A, B);
+        System.out.println(gcd);
+        System.out.println(A * B / gcd);
+    }
+
+    private static int gcd(int a, int b) {
+        if (b == 0) return a;
+        return gcd(b, a % b);
+    }
+
+
+    private static int gcd2(int b, int s) {
+        int gcd = 0;
+        int tmp = 0;
+        while (true){
+            tmp = b % s;
+            if(tmp == 0){
+                gcd = s;
+                break;
+            }
+            b = s;
+            s = tmp;
+        }
+        return gcd;
     }
 }
